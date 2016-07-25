@@ -1,5 +1,5 @@
 # nbox-pwnage
-
+```
      **** Here comes the paintrain! ****
 
          . lol . lol . lol o
@@ -8,6 +8,7 @@
      [__________]_|__|________)<          | nbox |
       oo  oo   oo  'oo OOOO-| oo\\_        ~~|~~~
   +--+--+--+--+--+--+--+--+--+-$1-+--+--+--+--+--+--+
+```
 
 1. Create your own nbox appliance: ```vagrant up```
 
