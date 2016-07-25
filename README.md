@@ -14,4 +14,4 @@
 
 2. SSH into the appliance with ```vagrant ssh```
 
-3. Check for (some) of the nbox vulnerabilities with ```./vagrant/checker.sh```
+3. Check for (some) of the nbox vulnerabilities with ```cd /vagrant && ./checker.sh```
