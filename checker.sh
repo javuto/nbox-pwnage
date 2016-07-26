@@ -77,7 +77,7 @@ set -e
 # Ascii art is always appreciated
 paintrain
 
-echo "[+] Checking nbox is running..."
+echo "[+] - Checking nbox is running..."
 NBOX_VERSION=`nbox_get_ dashboard.cgi | grep "NTOP" | cut -d">" -f3 | cut -d"<" -f1`
 
 if [[ -z "$NBOX_VERSION" ]]; then
