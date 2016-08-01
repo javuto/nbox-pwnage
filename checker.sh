@@ -2,7 +2,15 @@
 #
 # nbox 2.5 pwnage checker
 #
-# It must run locally in the nbox machine to verify the pwnage.
+# Usage: checker.sh [-h|--help] [PARAMETER [ARGUMENT]] [PARAMETER [ARGUMENT]] ...
+#
+# Parameters:
+#   -h, --help            Shows this help message and exit.
+#   -t URL, --target URL  Target URL. Default value is https://127.0.0.1/ntop-bin
+#   -u USER, --user USER  Username for authentication. Default value is nbox
+#   -p PASS, --pass PASS  Password for authentication. Default value is nbox
+#
+# By default, it runs locally in the nbox machine to verify the pwnage.
 #
 # (@javutin)
 #
@@ -26,6 +34,20 @@ NBOX_USER="nbox"
 NBOX_PASSWORD="nbox"
 
 # Some functions because we can
+
+# Usage
+function usage() {
+  printf "\nnbox 2.5 pwnage checker\n"
+  printf "\nUsage: %s [-h|--help] [PARAMETER [ARGUMENT]] [PARAMETER [ARGUMENT]] ...\n" "${0}"
+  printf "\nParameters:\n"
+  printf "  -h, --help \t\tShows this help message and exit.\n"
+  printf "  -t URL, --target URL \tTarget URL. Default value is %s\n" "${NBOX_URL}"
+  printf "  -u USER, --user USER \tUsername for authentication. Default value is %s\n" "${NBOX_USER}"
+  printf "  -p PASS, --pass PASS \tPassword for authentication. Default value is %s\n" "${NBOX_PASSWORD}"
+  printf "\nExamples:\n"
+  printf "  Target running in 192.168.0.22 with the credentials test/test:\n"
+  printf "\t%s -t https://192.168.0.22/ntop-bin -u test -p test\n\n" "${0}"
+}
 
 # Tchoo Tchoo!
 function paintrain() {
@@ -77,6 +99,42 @@ set -e
 # Ascii art is always appreciated
 paintrain
 
+ARGS=$(getopt -n "$0" -o ht:u:p: -l "help,target:,user:,pass:" -- "$@")
+
+eval set -- "$ARGS"
+
+while true; do
+  case "$1" in
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    -t|--target)
+      NBOX_URL=$2
+      shift 2
+      ;;
+    -u|--user)
+      NBOX_USER=$2
+      shift 2
+      ;;
+    -p|--pass)
+      NBOX_PASSWORD=$2
+      shift 2
+      ;;
+    --)
+      shift
+      break
+      ;;
+    *)
+      usage
+      exit 1
+      ;;
+  esac
+done
+
+# Here we go
+echo "[+] - Target: $NBOX_URL - User: $NBOX_USER - Password: $NBOX_PASSWORD"
+echo
 echo "[+] - Checking nbox is running..."
 NBOX_VERSION=`nbox_get_ dashboard.cgi | grep "NTOP" | cut -d">" -f3 | cut -d"<" -f1`
 
