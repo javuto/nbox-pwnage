@@ -17,3 +17,5 @@
 3. Check for (some) of the nbox vulnerabilities with ```cd /vagrant && ./checker.sh```
 
 4. Did you find more? Pull Request welcome!
+
+UPDATE: Issues have been (silently) fixed again. So no more paintrain... For now!
